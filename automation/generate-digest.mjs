@@ -374,13 +374,19 @@ async function createButtondownDraft({ title, body, closing }) {
   const aliases = { sent: "about_to_send", send: "about_to_send" };
   const status = aliases[BUTTONDOWN_STATUS] || BUTTONDOWN_STATUS;
 
+  const headers = {
+    Authorization: `Token ${BUTTONDOWN_API_KEY}`,
+    "Content-Type": "application/json",
+  };
+  // Sending an email through the API requires Buttondown's explicit opt-in header.
+  if (status === "about_to_send" || status === "scheduled") {
+    headers["X-Buttondown-Live-Dangerously"] = "true";
+  }
+
   const emailBody = `${body}\n\n---\n\n${closing}`;
   const res = await fetch(`${BUTTONDOWN_BASE}/v1/emails`, {
     method: "POST",
-    headers: {
-      Authorization: `Token ${BUTTONDOWN_API_KEY}`,
-      "Content-Type": "application/json",
-    },
+    headers,
     body: JSON.stringify({ subject: title, body: emailBody, status }),
   });
   if (!res.ok) {
