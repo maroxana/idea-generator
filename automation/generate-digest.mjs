@@ -327,6 +327,7 @@ function renderIssueHtml({ issueNumStr, human, iso, items, closing }) {
   <header class="site-header container">
     <a class="brand" href="../">AI Insider Digest</a>
     <nav>
+      <a href="../../">&larr; All Apps</a>
       <a href="../archive.html">Archive</a>
     </nav>
   </header>
@@ -364,7 +365,7 @@ async function updateArchive({ issueNumStr, human, iso, title, teaser }) {
   await fs.writeFile(ARCHIVE_FILE, updated);
 }
 
-async function createButtondownDraft({ title, body, closing }) {
+async function createButtondownDraft({ title, items, closing }) {
   if (!BUTTONDOWN_API_KEY) {
     console.warn("No BUTTONDOWN_API_KEY set; skipping email.");
     return;
@@ -383,7 +384,20 @@ async function createButtondownDraft({ title, body, closing }) {
     headers["X-Buttondown-Live-Dangerously"] = "true";
   }
 
-  const emailBody = `${body}\n\n---\n\n${closing}`;
+  // Build the markdown body from parsed items so source URLs become proper
+  // markdown links. Bare "Source: https://..." text is NOT autolinked by
+  // Buttondown's renderer, so links would otherwise be unclickable.
+  const blocks = items.map((it) => {
+    const lines = [`## ${it.headline}`, "", it.summary];
+    if (it.why) {
+      lines.push("", `**Why it matters to ${AUDIENCE}:** ${it.why}`);
+    }
+    if (it.source) {
+      lines.push("", `[Read the source →](${it.source})`);
+    }
+    return lines.join("\n");
+  });
+  const emailBody = `${blocks.join("\n\n---\n\n")}\n\n---\n\n${closing}`;
   const res = await fetch(`${BUTTONDOWN_BASE}/v1/emails`, {
     method: "POST",
     headers,
@@ -452,7 +466,7 @@ async function main() {
 
   await createButtondownDraft({
     title: `${digest.title} — Issue ${issueNumStr}`,
-    body: digest.body,
+    items: digest.items,
     closing: digest.closing,
   });
 

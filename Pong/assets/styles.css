@@ -25,6 +25,28 @@ body {
   place-items: center;
 }
 
+.back-home {
+  position: fixed;
+  top: 14px;
+  left: 16px;
+  z-index: 20;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 6px 11px;
+  border: 1px solid rgba(245, 245, 245, 0.25);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.back-home:hover,
+.back-home:focus-visible {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
 .shell {
   position: relative;
   width: 100vw;
