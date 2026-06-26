@@ -459,4 +459,6 @@ async function main() {
   console.log("Done.");
 }
 
-main().catch((err) => fail(err.stack || err.message));
+main()
+  .then(() => process.exit(0))
+  .catch((err) => fail(err.stack || err.message));
