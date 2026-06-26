@@ -366,9 +366,14 @@ async function updateArchive({ issueNumStr, human, iso, title, teaser }) {
 
 async function createButtondownDraft({ title, body, closing }) {
   if (!BUTTONDOWN_API_KEY) {
-    console.warn("No BUTTONDOWN_API_KEY set; skipping email draft.");
+    console.warn("No BUTTONDOWN_API_KEY set; skipping email.");
     return;
   }
+  // Buttondown accepts these statuses when creating an email. "sent" is not one
+  // of them; to send immediately you create the email as "about_to_send".
+  const aliases = { sent: "about_to_send", send: "about_to_send" };
+  const status = aliases[BUTTONDOWN_STATUS] || BUTTONDOWN_STATUS;
+
   const emailBody = `${body}\n\n---\n\n${closing}`;
   const res = await fetch(`${BUTTONDOWN_BASE}/v1/emails`, {
     method: "POST",
@@ -376,13 +381,13 @@ async function createButtondownDraft({ title, body, closing }) {
       Authorization: `Token ${BUTTONDOWN_API_KEY}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ subject: title, body: emailBody, status: BUTTONDOWN_STATUS }),
+    body: JSON.stringify({ subject: title, body: emailBody, status }),
   });
   if (!res.ok) {
     console.warn(`Buttondown API ${res.status}: ${await res.text()}`);
     return;
   }
-  console.log(`Buttondown email created with status "${BUTTONDOWN_STATUS}".`);
+  console.log(`Buttondown email created with status "${status}".`);
 }
 
 async function main() {
@@ -399,7 +404,7 @@ async function main() {
   console.log(`Collected ${items.length} candidate items from the last 7 days.`);
   if (items.length === 0) fail("No items found in any feed; nothing to curate.");
 
-  console.log("Curating with Claude...");
+  console.log(`Curating with ${LLM_PROVIDER}...`);
   const markdown = await curate(items);
   const digest = parseDigest(markdown);
   if (digest.items.length === 0) {

@@ -39,7 +39,7 @@ Set these as repo secrets/variables or inline in the workflow `env:` block.
 | `GITHUB_MODEL` | `openai/gpt-4o-mini` | Any model id available in GitHub Models. |
 | `ANTHROPIC_MODEL` | `claude-3-5-sonnet-latest` | Used only when `LLM_PROVIDER=anthropic`. |
 | `BUTTONDOWN_BASE` | `https://api.buttondown.email` | API base URL. |
-| `BUTTONDOWN_STATUS` | `draft` | Use `draft` to review before sending, or `sent` to send immediately. The workflow currently sets this to `sent`. |
+| `BUTTONDOWN_STATUS` | `draft` | `draft` to review before sending, or `sent` to send immediately (mapped to Buttondown's `about_to_send`). The workflow currently sets this to `sent`. |
 
 ## Editing sources
 
