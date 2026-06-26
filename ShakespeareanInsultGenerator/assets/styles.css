@@ -1,3 +1,5 @@
+@import "../../assets/base.css";
+
 :root {
   --bg: #18140f;
   --paper: #2a2118;
@@ -9,10 +11,6 @@
   --danger: #b0433f;
   --line: #705532;
   --shadow: rgba(0, 0, 0, 0.45);
-}
-
-* {
-  box-sizing: border-box;
 }
 
 html,

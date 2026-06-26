@@ -1,0 +1,22 @@
+/*
+  Shared base reset for all apps in this site.
+  Keep only truly universal rules here. Each app defines its own
+  palette and layout in its local stylesheet.
+*/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -5,202 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>App Showcase Home</title>
   <meta name="description" content="Professional homepage to access AI Insider Digest, Pong, and Shakespearean Insult Generator.">
+  <meta name="theme-color" content="#f2eee8">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="App Collection — AI Insider Digest, Pong, Shakespeare Insults">
+  <meta property="og:description" content="A clean launchpad for three web experiences: a curated AI digest, a retro Pong game, and an Elizabethan insult generator.">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #f2eee8;
-      --surface: #fffaf2;
-      --surface-soft: #f8f0e4;
-      --ink: #1f2a37;
-      --muted: #556173;
-      --line: #dbcbb8;
-      --accent: #8a5a34;
-      --accent-strong: #6f4120;
-      --shadow: 0 16px 40px rgba(31, 42, 55, 0.14);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100%;
-    }
-
-    body {
-      font-family: "Manrope", "Segoe UI", sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 10% 10%, rgba(138, 90, 52, 0.12), transparent 28%),
-        radial-gradient(circle at 90% 0%, rgba(77, 115, 154, 0.11), transparent 24%),
-        var(--bg);
-      line-height: 1.6;
-    }
-
-    .container {
-      width: min(1080px, 92vw);
-      margin: 0 auto;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(8px);
-      background: rgba(255, 250, 242, 0.88);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .topbar-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.85rem 0;
-    }
-
-    .brand {
-      margin: 0;
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: 1.2rem;
-      letter-spacing: 0.02em;
-    }
-
-    .menu {
-      display: flex;
-      gap: 0.7rem;
-      flex-wrap: wrap;
-    }
-
-    .menu a {
-      text-decoration: none;
-      color: var(--ink);
-      font-weight: 600;
-      border: 1px solid var(--line);
-      background: var(--surface);
-      padding: 0.5rem 0.75rem;
-      border-radius: 10px;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .menu a:hover {
-      transform: translateY(-1px);
-      border-color: #b89a7a;
-    }
-
-    .hero {
-      padding: 4.2rem 0 2.4rem;
-      text-align: center;
-    }
-
-    .hero h1 {
-      margin: 0;
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: clamp(2rem, 6vw, 3.45rem);
-      line-height: 1.16;
-      letter-spacing: 0.015em;
-    }
-
-    .hero p {
-      margin: 1rem auto 0;
-      color: var(--muted);
-      max-width: 66ch;
-      font-size: clamp(1rem, 2vw, 1.12rem);
-    }
-
-    .apps {
-      padding: 1rem 0 3.4rem;
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 1rem;
-    }
-
-    .card {
-      grid-column: span 4;
-      background: linear-gradient(155deg, var(--surface), var(--surface-soft));
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 1.15rem;
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      gap: 0.7rem;
-    }
-
-    .card h2 {
-      margin: 0;
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: 1.38rem;
-    }
-
-    .card p {
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .card a {
-      margin-top: auto;
-      align-self: flex-start;
-      text-decoration: none;
-      color: #fff;
-      background: var(--accent);
-      border: 1px solid var(--accent-strong);
-      padding: 0.56rem 0.84rem;
-      border-radius: 10px;
-      font-weight: 700;
-      transition: background-color 0.2s ease;
-    }
-
-    .card a:hover {
-      background: var(--accent-strong);
-    }
-
-    .footer {
-      padding: 1rem 0 2.2rem;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    @media (max-width: 930px) {
-      .card {
-        grid-column: span 6;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .topbar-inner {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 0.65rem;
-      }
-
-      .menu a {
-        padding: 0.48rem 0.62rem;
-      }
-
-      .apps {
-        gap: 0.85rem;
-      }
-
-      .card {
-        grid-column: span 12;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
   <header class="topbar">
     <div class="container topbar-inner">
       <p class="brand">Project Home</p>
       <nav class="menu" aria-label="App navigation">
-        <a href="AIinsiderDigest/index.html">AI Insider Digest</a>
-        <a href="Pong/index.html">Pong</a>
-        <a href="ShakespeareanInsultGenerator/index.html">Shakespeare Insults</a>
+        <a href="AIinsiderDigest/">AI Insider Digest</a>
+        <a href="Pong/">Pong</a>
+        <a href="ShakespeareanInsultGenerator/">Shakespeare Insults</a>
       </nav>
     </div>
   </header>
@@ -220,7 +43,7 @@
         <p>
           A focused weekly AI digest for IT contract recruiters with archive pages and issue previews.
         </p>
-        <a href="AIinsiderDigest/index.html">Open App</a>
+        <a href="AIinsiderDigest/">Open App</a>
       </article>
 
       <article class="card">
@@ -228,7 +51,7 @@
         <p>
           Retro arcade challenge with a shrinking wall gap, one-minute timer, and score attack gameplay.
         </p>
-        <a href="Pong/index.html">Open App</a>
+        <a href="Pong/">Open App</a>
       </article>
 
       <article class="card">
@@ -236,7 +59,7 @@
         <p>
           Generate dramatic Elizabethan insults with history, copy tools, and optional speech/tweet actions.
         </p>
-        <a href="ShakespeareanInsultGenerator/index.html">Open App</a>
+        <a href="ShakespeareanInsultGenerator/">Open App</a>
       </article>
     </section>
   </main>

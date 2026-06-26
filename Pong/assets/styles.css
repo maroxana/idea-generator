@@ -1,3 +1,5 @@
+@import "../../assets/base.css";
+
 :root {
   --bg: #1a1a1a;
   --panel: rgba(255, 255, 255, 0.08);
@@ -5,10 +7,6 @@
   --muted: rgba(245, 245, 245, 0.7);
   --flash: rgba(80, 255, 120, 0.22);
   --shadow: rgba(0, 0, 0, 0.45);
-}
-
-* {
-  box-sizing: border-box;
 }
 
 html,
