@@ -172,6 +172,59 @@ h1 {
   font-size: 0.95rem;
 }
 
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.form-message {
+  margin: 0.2rem 0 0.4rem;
+  min-height: 1.2em;
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+.form-message.is-success {
+  color: var(--accent-strong);
+}
+
+.sources {
+  padding: 1.5rem 0 0.5rem;
+}
+
+.sources-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 0.4rem;
+}
+
+.sources-col {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 1.1rem 1.2rem;
+}
+
+.sources-col h3 {
+  margin: 0 0 0.5rem;
+}
+
+.sources-col ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+}
+
+.sources-col li {
+  margin: 0.2rem 0;
+}
+
 .preview,
 .archive,
 .issue {
@@ -231,6 +284,11 @@ h1 {
   margin: 1.35rem 0;
 }
 
+.issue-source {
+  margin: 0.35rem 0 0;
+  font-size: 0.95rem;
+}
+
 .site-footer {
   padding: 1.8rem 0 2.4rem;
   color: var(--muted);
@@ -271,5 +329,9 @@ h1 {
   .bg-shape {
     width: 180px;
     height: 180px;
+  }
+
+  .sources-grid {
+    grid-template-columns: 1fr;
   }
 }

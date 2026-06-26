@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="AI Insider Digest">
+  <rect width="1200" height="630" fill="#f4efe6"/>
+  <circle cx="120" cy="120" r="240" fill="#0a7c70" opacity="0.10"/>
+  <circle cx="1080" cy="540" r="200" fill="#f2b03d" opacity="0.14"/>
+  <g font-family="'Space Grotesk', 'Segoe UI', sans-serif">
+    <text x="100" y="220" font-size="40" fill="#516067" font-weight="500">WEEKLY DIGEST</text>
+    <text x="100" y="320" font-size="84" fill="#192227" font-weight="700">AI Insider Digest</text>
+    <text x="100" y="400" font-size="40" fill="#0a7c70" font-weight="500">for IT contract recruiters</text>
+    <text x="100" y="500" font-size="32" fill="#516067">Curated updates · zero hype · practical takeaways</text>
+  </g>
+  <rect x="100" y="540" width="120" height="10" rx="5" fill="#0a7c70"/>
+</svg>

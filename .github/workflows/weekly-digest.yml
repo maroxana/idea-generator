@@ -1,0 +1,58 @@
+name: Weekly Digest
+
+on:
+  schedule:
+    # Mondays at 08:00 UTC
+    - cron: "0 8 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  models: read
+
+concurrency:
+  group: weekly-digest
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: automation
+        run: npm install
+
+      - name: Generate weekly digest
+        working-directory: automation
+        env:
+          # Free curation via GitHub Models using the built-in token (no paid key needed).
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LLM_PROVIDER: github
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+          # Send the email automatically instead of leaving it as a draft.
+          BUTTONDOWN_STATUS: sent
+          # Optional: switch to paid Anthropic instead of GitHub Models
+          # LLM_PROVIDER: anthropic
+          # ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # GITHUB_MODEL: openai/gpt-4o-mini
+        run: node generate-digest.mjs
+
+      - name: Commit and publish
+        run: |
+          git config user.name "digest-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add AIinsiderDigest/issues AIinsiderDigest/archive.html
+          if git diff --staged --quiet; then
+            echo "No changes to publish."
+          else
+            git commit -m "Publish weekly AI Insider Digest issue"
+            git push
+          fi

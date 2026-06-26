@@ -1,0 +1,24 @@
+{
+  "niche": "AI for Independent Recruiters",
+  "audience": "IT contract recruiters",
+  "_comment": "Public RSS/Atom feeds scanned each week. Feeds that fail to load are skipped automatically. Edit freely.",
+  "groups": [
+    {
+      "name": "AI & product news",
+      "feeds": [
+        "https://huggingface.co/blog/feed.xml",
+        "https://techcrunch.com/category/artificial-intelligence/feed/",
+        "https://venturebeat.com/category/ai/feed/",
+        "https://www.technologyreview.com/topic/artificial-intelligence/feed",
+        "https://www.theverge.com/rss/index.xml"
+      ]
+    },
+    {
+      "name": "Recruiting & talent",
+      "feeds": [
+        "https://www.ere.net/feed/",
+        "https://recruitingdaily.com/feed/"
+      ]
+    }
+  ]
+}

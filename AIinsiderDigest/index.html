@@ -6,10 +6,14 @@
   <title>AI Insider Digest for IT Contract Recruiters</title>
   <meta name="description" content="A weekly AI digest built for IT contract recruiters. Curated updates, zero hype, practical takeaways.">
   <meta name="theme-color" content="#f4efe6">
+  <link rel="canonical" href="https://maroxana.github.io/idea-generator/AIinsiderDigest/">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://maroxana.github.io/idea-generator/AIinsiderDigest/">
   <meta property="og:title" content="AI Insider Digest for IT Contract Recruiters">
   <meta property="og:description" content="A weekly, curated AI digest for IT contract recruiters. Zero hype, practical takeaways.">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://maroxana.github.io/idea-generator/AIinsiderDigest/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://maroxana.github.io/idea-generator/AIinsiderDigest/assets/og-image.png">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,14 +42,55 @@
 
       <section class="signup-card" aria-label="Email signup">
         <h2>Get next week&#39;s digest</h2>
-        <p>Use Buttondown or Beehiiv by replacing the form action URL in this file.</p>
-        <form class="signup-form" action="#" method="post">
+        <p>One concise email a week, curated for IT contract recruiters. Delivered via Buttondown.</p>
+        <form
+          class="signup-form"
+          action="https://buttondown.com/api/emails/embed-subscribe/roxmarie209"
+          method="post"
+          target="popupwindow"
+          onsubmit="return handleSubscribe()"
+        >
           <label class="sr-only" for="email">Email address</label>
-          <input id="email" name="email" type="email" placeholder="you@company.com" required>
+          <input id="email" name="email" type="email" placeholder="you@company.com" autocomplete="email" required>
+          <!-- Honeypot: real users leave this empty; bots tend to fill it. -->
+          <input class="hp-field" type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
           <button type="submit">Subscribe</button>
         </form>
-        <p class="note">No fluff. No generic AI roundup. Unsubscribe anytime.</p>
+        <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
+        <p class="note">No fluff. No generic AI roundup. Unsubscribe anytime. See our <a class="text-link" href="privacy.html">privacy policy</a>.</p>
       </section>
+    </section>
+
+    <section class="sources container" aria-label="How we curate">
+      <div class="section-top">
+        <h2>Where our picks come from</h2>
+      </div>
+      <p class="subhead">
+        Each week we scan a fixed set of trusted sources, then an AI curation pass selects only the 5&ndash;8 items
+        with a concrete takeaway for recruiting workflows. Every summary is written in our own words and links back
+        to the original.
+      </p>
+      <div class="sources-grid">
+        <div class="sources-col">
+          <h3>AI &amp; product news</h3>
+          <ul>
+            <li>OpenAI, Anthropic, and Google AI blogs</li>
+            <li>Hugging Face blog</li>
+            <li>TLDR AI &amp; Ben&#39;s Bites newsletters</li>
+            <li>The Rundown AI</li>
+          </ul>
+        </div>
+        <div class="sources-col">
+          <h3>Recruiting &amp; talent</h3>
+          <ul>
+            <li>Recruiting Brainfood (Hung Lee)</li>
+            <li>ERE.net</li>
+            <li>LinkedIn Talent Blog</li>
+            <li>SHRM technology coverage</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note">Sources are reviewed periodically and may change as the landscape shifts.</p>
     </section>
 
     <section class="preview container" id="sample-issue">
@@ -69,6 +114,9 @@
 
   <footer class="site-footer container">
     <p>AI Insider Digest • Curated weekly for IT contract recruiters</p>
+    <p><a class="text-link" href="archive.html">Archive</a> • <a class="text-link" href="privacy.html">Privacy</a></p>
   </footer>
+
+  <script src="assets/app.js" defer></script>
 </body>
 </html>
