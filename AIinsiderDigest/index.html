@@ -6,6 +6,7 @@
   <title>AI Insider Digest for IT Contract Recruiters</title>
   <meta name="description" content="A weekly AI digest built for IT contract recruiters. Curated updates, zero hype, practical takeaways.">
   <meta name="theme-color" content="#f4efe6">
+  <meta name="turnstile-sitekey" content="">
   <link rel="canonical" href="https://maroxana.github.io/idea-generator/AIinsiderDigest/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://maroxana.github.io/idea-generator/AIinsiderDigest/">
@@ -46,15 +47,17 @@
         <p>One concise email a week, curated for IT contract recruiters. Delivered via Buttondown.</p>
         <form
           class="signup-form"
-          action="https://buttondown.com/api/emails/embed-subscribe/roxmarie209"
-          method="post"
-          target="popupwindow"
-          onsubmit="return handleSubscribe()"
+          data-subscribe-endpoint="/api/subscribe"
+          novalidate
         >
           <label class="sr-only" for="email">Email address</label>
           <input id="email" name="email" type="email" placeholder="you@company.com" autocomplete="email" required>
           <!-- Honeypot: real users leave this empty; bots tend to fill it. -->
           <input class="hp-field" type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input id="startedAt" name="startedAt" type="hidden" value="0">
+          <input id="fingerprint" name="fingerprint" type="hidden" value="">
+          <input id="captchaToken" name="captchaToken" type="hidden" value="">
+          <div id="captchaContainer" class="captcha-container" hidden></div>
           <button type="submit">Subscribe</button>
         </form>
         <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
@@ -118,6 +121,7 @@
     <p><a class="text-link" href="archive.html">Archive</a> • <a class="text-link" href="privacy.html">Privacy</a></p>
   </footer>
 
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script src="assets/app.js" defer></script>
 </body>
 </html>
