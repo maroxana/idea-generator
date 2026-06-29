@@ -2,8 +2,8 @@ name: Weekly Digest
 
 on:
   schedule:
-    # Mondays 11:21 Bucharest (GMT+3/EEST) = 08:21 UTC. Cron is always UTC.
-    - cron: "21 8 * * 1"   # 11:21 Bucharest test
+    # Mondays 11:35 Bucharest (GMT+3/EEST) = 08:35 UTC. Cron is always UTC.
+    - cron: "35 8 * * 1"   # 11:35 Bucharest test
   workflow_dispatch: {} # manual "Run workflow" button
 
 permissions:
