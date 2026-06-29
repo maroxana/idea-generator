@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Interview Tests</title>
+  <meta name="description" content="Practice AI interview readiness with role-aware technical and responsible AI assessments.">
+  <meta name="theme-color" content="#f5f7fb">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI Interview Tests">
+  <meta property="og:description" content="Generate role-aware AI interview tests for junior engineers and managers.">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="back-home" href="../">&larr; All Apps</a>
+      <p class="brand">AI Interview Tests</p>
+    </div>
+  </header>
+
+  <main class="container app-shell">
+    <section id="setupPanel" class="panel setup-panel">
+      <p class="eyebrow">AI Agent Driven</p>
+      <h1>Practice Responsible AI Interview Readiness</h1>
+      <p class="lead">
+        Generate role-aware interview tests for fresh graduates across engineering and tech management tracks.
+        Questions blend technical execution with safe, ethical, and practical AI usage.
+      </p>
+
+      <div class="setup-grid">
+        <label class="field">
+          <span>Target role</span>
+          <select id="roleType" aria-label="Select role">
+            <option value="Future Full Stack Developer">Future Full Stack Developer</option>
+            <option value="Frontend Developer">Frontend Developer</option>
+            <option value="Backend Developer">Backend Developer</option>
+            <option value="DevOps Engineer">DevOps Engineer</option>
+            <option value="Tech Manager">Tech Manager</option>
+            <option value="DevOps Manager">DevOps Manager</option>
+          </select>
+        </label>
+
+        <fieldset class="field toggle-group">
+          <legend>Question set size</legend>
+          <label>
+            <input type="radio" name="questionCount" value="15" checked>
+            Default test (15 questions)
+          </label>
+          <label>
+            <input type="radio" name="questionCount" value="25">
+            Extended test (+10 questions, total 25)
+          </label>
+        </fieldset>
+      </div>
+
+      <div class="actions">
+        <button id="generateBtn" class="button button-primary" type="button">Generate Test with AI Agent</button>
+      </div>
+      <p id="setupMessage" class="message" aria-live="polite"></p>
+    </section>
+
+    <section id="testPanel" class="panel hidden" aria-live="polite">
+      <div class="test-head">
+        <div>
+          <p id="testTitle" class="eyebrow"></p>
+          <h2 id="questionHeading"></h2>
+        </div>
+        <div class="progress-block" aria-label="Progress">
+          <p><strong id="progressLabel"></strong></p>
+          <p id="progressMeta"></p>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div id="progressBar" class="progress-value"></div>
+          </div>
+        </div>
+      </div>
+
+      <article class="question-card">
+        <header class="question-meta">
+          <span id="questionTypeBadge" class="badge"></span>
+          <span id="difficultyBadge" class="badge badge-muted"></span>
+          <span id="topicBadge" class="badge badge-topic"></span>
+        </header>
+        <p id="questionPrompt" class="question-prompt"></p>
+        <form id="optionsForm" class="options" novalidate></form>
+      </article>
+
+      <div class="nav-actions">
+        <button id="prevBtn" class="button button-ghost" type="button">Previous</button>
+        <button id="nextBtn" class="button button-ghost" type="button">Next</button>
+        <button id="submitBtn" class="button button-primary" type="button">Submit Test</button>
+      </div>
+      <p id="testMessage" class="message" aria-live="polite"></p>
+    </section>
+
+    <section id="resultsPanel" class="panel hidden">
+      <p class="eyebrow">Results</p>
+      <h2>Assessment Breakdown</h2>
+
+      <div class="score-grid">
+        <article class="score-card">
+          <h3>Final Score</h3>
+          <p id="scorePercent" class="score-value">0%</p>
+        </article>
+        <article class="score-card">
+          <h3>Points Earned</h3>
+          <p id="scorePoints" class="score-value">0 / 0</p>
+        </article>
+        <article class="score-card">
+          <h3>Correct Choices Selected</h3>
+          <p id="scoreCorrectCount" class="score-value">0</p>
+        </article>
+      </div>
+
+      <section>
+        <h3>Detailed Review</h3>
+        <div id="resultsList" class="results-list"></div>
+      </section>
+
+      <div class="actions">
+        <button id="restartBtn" class="button button-primary" type="button">Create New Test</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/app.js" defer></script>
+</body>
+</html>
