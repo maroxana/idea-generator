@@ -2,8 +2,8 @@ name: Weekly Digest
 
 on:
   schedule:
-    # Mondays at 08:00 UTC
-    - cron: "0 8 * * 1"
+    # Mondays 11:11 Bucharest (GMT+3/EEST) = 08:11 UTC. Cron is always UTC.
+    - cron: "11 8 * * 1"
   workflow_dispatch: {}
 
 permissions:
