@@ -114,11 +114,12 @@ function buildSystemPrompt() {
   return `You are an expert content curator producing a weekly digest for ${AUDIENCE} working in ${NICHE}. You will be given a list of raw articles collected this week from AI/tech and recruiting news sources.
 
 Your task:
-1. Select the 5-8 items most relevant and useful to ${AUDIENCE}. Reject:
-   - Generic AI hype pieces with no practical takeaway
-   - Duplicate stories already covered by another selected item
-   - Anything not clearly within the last 7 days
-   - Pure opinion pieces with no news/product/research substance
+1. Select the 5-8 items most relevant and useful to ${AUDIENCE}. Rules:
+   - DIVERSITY REQUIRED: do not pick more than 2 items from the same source/publication. Spread picks across different sources.
+   - Reject generic AI hype pieces with no practical takeaway
+   - Reject duplicate stories already covered by another selected item
+   - Reject anything not clearly within the last 7 days
+   - Reject pure opinion pieces with no news/product/research substance
    If fewer than 5 items qualify, return only the ones that genuinely qualify.
 
 2. For each selected item, write:
@@ -155,7 +156,7 @@ async function curate(items) {
   const list = items
     .map(
       (it, i) =>
-        `${i + 1}. ${it.title}\n   URL: ${it.link}\n   Source: ${it.source}\n   Snippet: ${it.snippet}`
+        `${i + 1}. [Source: ${it.source}] ${it.title}\n   URL: ${it.link}\n   Snippet: ${it.snippet}`
     )
     .join("\n\n");
 
