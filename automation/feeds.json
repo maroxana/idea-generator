@@ -4,20 +4,49 @@
   "_comment": "Public RSS/Atom feeds scanned each week. Feeds that fail to load are skipped automatically. Edit freely.",
   "groups": [
     {
-      "name": "AI & product news",
+      "name": "Major AI & Tech News",
       "feeds": [
         "https://huggingface.co/blog/feed.xml",
         "https://techcrunch.com/category/artificial-intelligence/feed/",
         "https://venturebeat.com/category/ai/feed/",
         "https://www.technologyreview.com/topic/artificial-intelligence/feed",
-        "https://www.theverge.com/rss/index.xml"
+        "https://www.theverge.com/rss/index.xml",
+        "https://news.ycombinator.com/rss",
+        "https://www.wired.com/feed/rss",
+        "https://feeds.arstechnica.com/arstechnica/index"
       ]
     },
     {
-      "name": "Recruiting & talent",
+      "name": "AI Tools & Product Releases",
+      "feeds": [
+        "https://www.producthunt.com/feed.xml",
+        "https://openai.com/blog/feed/",
+        "https://blog.anthropic.com/feed/"
+      ]
+    },
+    {
+      "name": "Recruiting & Talent Industry",
       "feeds": [
         "https://www.ere.net/feed/",
-        "https://recruitingdaily.com/feed/"
+        "https://recruitingdaily.com/feed/",
+        "https://www.sourcecon.com/feed/",
+        "https://www.shrm.org/feed",
+        "https://www.linkedin.com/pulse/talent-acquisition/?rss=1"
+      ]
+    },
+    {
+      "name": "HR Tech & Recruitment Tools",
+      "feeds": [
+        "https://hrtechnews.com/feed/",
+        "https://www.digitalhrmmagazine.com/feed/",
+        "https://employeebenefitnews.com/feed/"
+      ]
+    },
+    {
+      "name": "AI Research & Deep Dives",
+      "feeds": [
+        "https://jack-clark.net/feed.xml",
+        "https://thealgorithmicbridge.substack.com/feed"
       ]
     }
   ]
