@@ -1,0 +1,23 @@
+name = "ai-insider-digest-subscribe"
+main = "worker.mjs"
+compatibility_date = "2024-11-01"
+
+# Non-secret config. Adjust as needed.
+[vars]
+# Lock the API to your site's origin (recommended). Leave empty to allow any origin.
+ALLOWED_ORIGIN = "https://maroxana.github.io"
+PER_IP_HOUR_LIMIT = "5"
+PER_EMAIL_COOLDOWN_SEC = "600"
+MIN_SUBMIT_MS = "1500"
+DOUBLE_OPT_IN = "true"
+
+# Durable rate-limit storage. Create with:
+#   npx wrangler kv namespace create RATE_LIMIT
+# then paste the returned id below.
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "fb6bdbb534bf42399da60974f532a317"
+
+# Secrets are NOT stored here. Set them with:
+#   npx wrangler secret put BUTTONDOWN_API_KEY
+#   npx wrangler secret put TURNSTILE_SECRET_KEY   # optional
