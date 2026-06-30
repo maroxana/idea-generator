@@ -2,8 +2,9 @@ name: Weekly Digest
 
 on:
   schedule:
-    - cron: "35 5 * * 2" # Tuesday 8:35 Bucharest (GMT+3/EEST) = 05:35 UTC. Cron is always UTC.
-  workflow_dispatch: {} # manual "Run workflow" button
+    - cron: "30 11 * * 2" # Tuesday 11:30 Bucharest (GMT+3/EEST) = 08:30 UTC. Cron is always UTC.
+      timezone: Europe/Bucharest
+  workflow_dispatch:  # manual "Run workflow" button
 
 permissions:
   contents: write
