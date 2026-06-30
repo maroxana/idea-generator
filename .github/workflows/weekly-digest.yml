@@ -2,11 +2,12 @@ name: Weekly Digest
 
 on:
   schedule:
-    # TEMP TEST: multiple marks ~5-10 min ahead (UTC) to verify the trigger fires.
-    - cron: '51 9 * * 2'
-    - cron: '53 9 * * 2'
-    - cron: '55 9 * * 2'
-    - cron: '57 9 * * 2'
+    # TEMP TEST: marks spread over the next ~18 min (UTC) to verify the trigger fires.
+    - cron: '40 10 * * 2'
+    - cron: '43 10 * * 2'
+    - cron: '46 10 * * 2'
+    - cron: '49 10 * * 2'
+    - cron: '52 10 * * 2'
   workflow_dispatch: {} # manual "Run workflow" button
 
 permissions:
