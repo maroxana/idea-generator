@@ -2,9 +2,12 @@ name: Weekly Digest
 
 on:
   schedule:
-    - cron: '20 12 * * 2' # Tuesday 12:20 Bucharest (GMT+3/EEST) = 09:20 UTC.
-      timezone: "Europe/Bucharest"
-#   workflow_dispatch:  # manual "Run workflow" button
+    # TEMP TEST: multiple marks ~5-10 min ahead (UTC) to verify the trigger fires.
+    - cron: '51 9 * * 2'
+    - cron: '53 9 * * 2'
+    - cron: '55 9 * * 2'
+    - cron: '57 9 * * 2'
+  workflow_dispatch: {} # manual "Run workflow" button
 
 permissions:
   contents: write
