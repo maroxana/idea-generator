@@ -1,5 +1,7 @@
 const SITE_TURNSTILE_KEY =
   document.querySelector('meta[name="turnstile-sitekey"]')?.getAttribute("content")?.trim() || "";
+const SUBSCRIBE_API_URL =
+  document.querySelector('meta[name="subscribe-api-url"]')?.getAttribute("content")?.trim() || "";
 
 function setMessage(messageEl, text, type = "") {
   if (!messageEl) return;
@@ -50,7 +52,21 @@ function attachCaptcha(form) {
 }
 
 async function submitSubscription(form) {
-  const endpoint = form.dataset.subscribeEndpoint || "/api/subscribe";
+  const endpoint = (form.dataset.subscribeEndpoint || SUBSCRIBE_API_URL || "").trim();
+  const isGithubPagesHost = window.location.hostname.endsWith("github.io");
+
+  if (!endpoint) {
+    const err = new Error("subscribe_endpoint_not_configured");
+    err.code = "subscribe_endpoint_not_configured";
+    throw err;
+  }
+
+  if (isGithubPagesHost && endpoint.startsWith("/api/")) {
+    const err = new Error("subscribe_endpoint_invalid_for_github_pages");
+    err.code = "subscribe_endpoint_invalid_for_github_pages";
+    throw err;
+  }
+
   const email = form.querySelector('input[name="email"]')?.value.trim() || "";
   const honeypot = form.querySelector('input[name="hp"]')?.value.trim() || "";
   const startedAt = Number(form.querySelector("#startedAt")?.value || "0");
@@ -133,8 +149,14 @@ function initSubscribe() {
       } else {
         setMessage(message, "Request blocked. Please verify details and try again.", "is-error");
       }
-    } catch {
-      setMessage(message, "Service temporarily unavailable. Please try again shortly.", "is-error");
+    } catch (error) {
+      if (error && error.code === "subscribe_endpoint_not_configured") {
+        setMessage(message, "Subscription service is not configured yet. Please try again later.", "is-error");
+      } else if (error && error.code === "subscribe_endpoint_invalid_for_github_pages") {
+        setMessage(message, "Subscribe API URL must be an external backend when hosted on GitHub Pages.", "is-error");
+      } else {
+        setMessage(message, "Service temporarily unavailable. Please try again shortly.", "is-error");
+      }
     } finally {
       submitBtn.disabled = false;
     }
