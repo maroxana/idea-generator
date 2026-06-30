@@ -43,11 +43,8 @@ export class RateLimiter {
       return { allowed: false, reason: "temporarily_blocked", retryAfterMs: blockedUntil - now };
     }
 
-    const ipBurst = this.hitWindow("ip10m", ip, this.config.perIpLimit, this.config.perIpWindowMs, now);
-    if (!ipBurst.allowed) {
-      return { allowed: false, reason: "ip_burst_limit", retryAfterMs: ipBurst.retryAfterMs };
-    }
-
+    // Per-IP hourly limit: allows a small household/office to subscribe different emails,
+    // while still blocking automated flood attempts.
     const ipHour = this.hitWindow("ip1h", ip, this.config.perIpHourLimit, this.config.perIpHourWindowMs, now);
     if (!ipHour.allowed) {
       return { allowed: false, reason: "ip_hour_limit", retryAfterMs: ipHour.retryAfterMs };
@@ -76,7 +73,7 @@ export class RateLimiter {
 
   markSuspiciousIp(ip, now) {
     const strike = this.hitWindow("ip-suspicious", ip, 1000, this.config.perIpHourWindowMs, now);
-    if (strike.remaining <= this.config.perIpHourLimit - 20) {
+    if (strike.remaining <= Math.max(this.config.perIpHourLimit - 5, 0)) {
       this.blocks.set(`ip:${ip}`, now + this.config.perIpHourWindowMs);
     }
   }

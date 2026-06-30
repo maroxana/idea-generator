@@ -10,9 +10,7 @@ function makeDeps(overrides = {}) {
     captchaSecret: "",
     allowCaptchaBypass: true,
     minSubmitMs: 1500,
-    perIpLimit: 4,
-    perIpWindowMs: 60_000,
-    perIpHourLimit: 20,
+    perIpHourLimit: 5,
     perIpHourWindowMs: 3_600_000,
     perEmailCooldownMs: 120_000,
     perFingerprintLimit: 5,
@@ -97,4 +95,29 @@ test("rejects malformed email", async () => {
   const response = await handler(baseInput({ email: "not-an-email" }));
   assert.equal(response.status, 400);
   assert.equal(JSON.parse(response.body).error, "invalid_email");
+});
+
+test("allows different emails from the same IP within hourly limit", async () => {
+  const { handler, nowValue } = makeDeps();
+
+  const first = await handler(baseInput({ email: "alice@example.com", requestId: "r1" }, { "x-request-id": "r1" }));
+  assert.equal(first.status, 200, "first subscriber should be accepted");
+
+  nowValue.value += 5_000;
+  const second = await handler(baseInput({ email: "bob@example.com", requestId: "r2" }, { "x-request-id": "r2" }));
+  assert.equal(second.status, 200, "different email from same IP should be accepted");
+});
+
+test("blocks same IP after exceeding hourly limit", async () => {
+  const { handler, nowValue } = makeDeps();
+  const emails = ["a@x.com", "b@x.com", "c@x.com", "d@x.com", "e@x.com"];
+
+  for (const email of emails) {
+    nowValue.value += 5_000;
+    await handler(baseInput({ email, requestId: email }, { "x-request-id": email }));
+  }
+
+  nowValue.value += 5_000;
+  const over = await handler(baseInput({ email: "f@x.com", requestId: "f" }, { "x-request-id": "f" }));
+  assert.equal(over.status, 429, "6th unique email from same IP within 1h should be blocked");
 });

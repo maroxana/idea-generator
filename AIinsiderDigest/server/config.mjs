@@ -17,8 +17,9 @@ export function loadConfig(env = process.env) {
     buttondownDoubleOptIn: toBool(env.BUTTONDOWN_DOUBLE_OPT_IN, true),
     perIpWindowMs: toInt(env.SUBSCRIBE_PER_IP_WINDOW_MS, 10 * 60 * 1000),
     perIpLimit: toInt(env.SUBSCRIBE_PER_IP_LIMIT, 8),
+    // Allow up to 5 different subscribers per IP per hour (household/office friendly).
     perIpHourWindowMs: toInt(env.SUBSCRIBE_PER_IP_HOUR_WINDOW_MS, 60 * 60 * 1000),
-    perIpHourLimit: toInt(env.SUBSCRIBE_PER_IP_HOUR_LIMIT, 30),
+    perIpHourLimit: toInt(env.SUBSCRIBE_PER_IP_HOUR_LIMIT, 5),
     perEmailCooldownMs: toInt(env.SUBSCRIBE_PER_EMAIL_COOLDOWN_MS, 10 * 60 * 1000),
     perFingerprintWindowMs: toInt(env.SUBSCRIBE_PER_FP_WINDOW_MS, 10 * 60 * 1000),
     perFingerprintLimit: toInt(env.SUBSCRIBE_PER_FP_LIMIT, 8),
