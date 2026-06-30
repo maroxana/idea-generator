@@ -139,12 +139,17 @@ async function recordSuspicious(kv, ip) {
 async function subscribeToButtondown({ apiKey, email, ip, userAgent, doubleOptIn, idempotencyKey }) {
   if (!apiKey) return { kind: "error", code: "buttondown_not_configured" };
 
+  // Buttondown API expects `email_address`; passing `ip_address` helps their
+  // firewall validate legitimacy. Double opt-in is the default (subscriber is
+  // created as `unactivated` and emailed a confirmation). Setting
+  // `type: "regular"` opts the subscriber in immediately (disables double opt-in).
   const payload = {
-    email,
-    metadata: { signup_ip: ip, user_agent: userAgent },
-    notes: "Subscribed via AI Insider Digest website",
-    double_opt_in: doubleOptIn
+    email_address: email,
+    metadata: { user_agent: userAgent },
+    notes: "Subscribed via AI Insider Digest website"
   };
+  if (ip && ip !== "unknown") payload.ip_address = ip;
+  if (!doubleOptIn) payload.type = "regular";
 
   let res;
   try {
@@ -163,15 +168,29 @@ async function subscribeToButtondown({ apiKey, email, ip, userAgent, doubleOptIn
 
   const raw = await res.text();
   const body = raw ? raw.toLowerCase() : "";
+  const looksDuplicate =
+    body.includes("already") ||
+    body.includes("exists") ||
+    body.includes("subscribed");
+  const firewallBlocked =
+    body.includes("subscriber_blocked") || body.includes("blocked by your firewall");
 
   if (res.ok) return { kind: "ok", status: "created" };
-  if (res.status === 409 || body.includes("already") || body.includes("exists")) {
+  // Buttondown returns 409 (or 400 on a collision) when the email already
+  // exists; treat that as a benign duplicate so abusers can't enumerate state.
+  if (res.status === 409 || ((res.status === 400 || res.status === 422) && looksDuplicate)) {
     return { kind: "ok", status: "duplicate" };
+  }
+  // Buttondown's spam firewall silently rejected the subscriber. Don't surface
+  // this to the caller (no signal to spammers); the legit fix is to relax the
+  // newsletter's firewall settings in Buttondown.
+  if (firewallBlocked) {
+    return { kind: "ok", status: "blocked" };
   }
   if (res.status === 429) {
     return { kind: "error", code: "buttondown_rate_limited", retryAfterSec: num(res.headers.get("retry-after"), 60) };
   }
-  return { kind: "error", code: "buttondown_rejected", details: raw.slice(0, 280) };
+  return { kind: "error", code: "buttondown_rejected", status: res.status, details: raw.slice(0, 280) };
 }
 
 export default {
