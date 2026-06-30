@@ -2,12 +2,10 @@ name: Weekly Digest
 
 on:
   schedule:
-    # TEMP TEST: marks spread over the next ~18 min (UTC) to verify the trigger fires.
-    - cron: '40 10 * * 2'
-    - cron: '43 10 * * 2'
-    - cron: '46 10 * * 2'
-    - cron: '49 10 * * 2'
-    - cron: '52 10 * * 2'
+    # GitHub Actions cron is UTC only.
+    # 09:20 UTC = 12:20 Bucharest in summer (EEST, +3) / 11:20 in winter (EET, +2).
+    - cron: '20 9 * * 1' # Monday 09:20 UTC
+    - cron: '20 9 * * 3' # Wednesday 09:20 UTC
   workflow_dispatch: {} # manual "Run workflow" button
 
 permissions:
